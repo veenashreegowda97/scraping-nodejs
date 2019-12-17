@@ -4,9 +4,7 @@ const cheerio = require("cheerio");
 const app = express();
 const { parseQueryParams,isURL } = require('./utils/index');
 const {insertData} = require('./models/scrapermodel');
-console.log('dfghjk');
 app.get("/", function(req, res) {
-  console.log('yes');
   urlval = []
   let urls = req.query.url;
   if(urls.length > 5) {
@@ -72,7 +70,6 @@ function getURLStructure(urls) {
       let urlStructIndex = getIndex(urlStruct, urlParam[0]);
       if (urlStructIndex !== -1) {
         let paramArr = [...urlStruct[urlStructIndex].param,...parameters];
-
         urlStruct[urlStructIndex].param = [... new Set(paramArr)];
       } else {
         urlStruct.push({
@@ -81,7 +78,6 @@ function getURLStructure(urls) {
         });
       }
     });
-    console.log('urlstruct',urlStruct);
   return urlStruct;
 }
 
