@@ -4,9 +4,8 @@ const cheerio = require("cheerio");
 const app = express();
 const { parseQueryParams,isURL } = require('./utils/index');
 const {insertData} = require('./models/scrapermodel');
-app.get("/", function(req, res) {
-  urlval = []
-  let urls = req.query.url;
+app.post("/", function(req, res) {
+  let urls = req.query.url.split(',');  //input format : localhost:8081/?url=http://dc.loan2pal.com/login,https://medium.com/
   if(urls.length > 5) {
     res.send({
       status : 'nok',
