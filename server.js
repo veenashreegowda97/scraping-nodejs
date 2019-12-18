@@ -1,11 +1,14 @@
 const express = require("express");
 const request = require("request");
 const cheerio = require("cheerio");
+const bodyParser = require("body-parser");
 const app = express();
 const { parseQueryParams,isURL } = require('./utils/index');
 const {insertData} = require('./models/scrapermodel');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post("/", function(req, res) {
-  let urls = req.query.url.split(',');  //input format : localhost:8081/?url=http://dc.loan2pal.com/login,https://medium.com/
+  let urls = req.body.url.split(',');  //Content-Type : application/x-www-form-urlencoded // example : http://dc.loan2pal.com/login,https://medium.com/
   if(urls.length > 5) {
     res.send({
       status : 'nok',
